@@ -1,40 +1,56 @@
-##Writeup Template
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
-
----
-
 **Advanced Lane Finding Project**
 
-The goals / steps of this project are the following:
+# Advanced Lane Finding
 
-* Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
-* Apply a distortion correction to raw images.
-* Use color transforms, gradients, etc., to create a thresholded binary image.
-* Apply a perspective transform to rectify binary image ("birds-eye view").
-* Detect lane pixels and fit to find the lane boundary.
-* Determine the curvature of the lane and vehicle position with respect to center.
-* Warp the detected lane boundaries back onto the original image.
-* Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
+## Udacity Self Driving Car Engineer Nanodegree - Project 4
+
+![Final Result Gif](./images/project_vid.gif)
+
+The goal of this project is to develop a pipeline to process a video stream from a forward-facing camera mounted on the front of a car, and output an annotated video which identifies:
+- The positions of the lane lines 
+- The location of the vehicle relative to the center of the lane
+- The radius of curvature of the road
+
+The pipeline created for this project processes images in the following steps:
+- **Step 1**: Apply distortion correction using a calculated camera calibration matrix and distortion coefficients.
+- **Step 2**: Apply color and gradient thresholds to create a binary image which isolates the pixels representing lane lines.
+- **Step 3**: Apply a perspective transformation to warp the image into a bird's-eye view perspective of the lane lines.
+- **Step 4**: Identify the lane line pixels and fit polynomials to the lane boundaries.
+- **Step 5**: Determine curvature of the lane and vehicle position with respect to center.
+- **Step 6**: Warp the detected lane boundaries back onto the original image.
+- **Step 7**: Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
 [//]: # (Image References)
 
-[image1]: ./examples/undistort_output.png "Undistorted"
-[image2]: ./test_images/test1.jpg "Road Transformed"
+[image1]: ./output_images/1_corners_found/corners_found1.jpg "Chessboard Conors"
+[image2]: ./output_images/2_distortion_corrected/0.png "Undistorted"
 [image3]: ./examples/binary_combo_example.jpg "Binary Example"
 [image4]: ./examples/warped_straight_lines.jpg "Warp Example"
 [image5]: ./examples/color_fit_lines.jpg "Fit Visual"
 [image6]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
 
-## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
-###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
+### Code:
+This project requires python 3.5 and the following dependencies:
+- [NumPy](http://www.numpy.org/)
+- [matplotlib](http://matplotlib.org/)
+- [OpenCV](http://opencv.org/)
+- [MoviePy](http://zulko.github.io/moviepy/)
 
----
-###Writeup / README
+### Step 1: Distortion Correction
+In this step, I used the OpenCV functions `findChessboardCorners` and `drawChessboardCorners` to identify the locations of corners on a series of pictures of a chessboard taken from different angles.
 
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Advanced-Lane-Lines/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
+![alt text][image1]
 
-You're reading it!
+Next, the locations of the chessboard corners were used as input to the OpenCV function `calibrateCamera` to compute the camera calibration matrix and distortion coefficients. 
+
+Finally, the camera calibration matrix and distortion coefficients were used with the OpenCV function `undistort` to remove distortion from highway driving images.
+
+![alt text][image2]
+
+Note that if you compare the two images, especially around the edges, there are noticable differences between the original and undistorted image, indicating that distortion has been removed from the original image.
+
+
 ###Camera Calibration
 
 ####1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
