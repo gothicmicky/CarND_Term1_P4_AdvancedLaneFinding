@@ -1,5 +1,3 @@
-**Advanced Lane Finding Project**
-
 # Advanced Lane Finding
 
 ## Udacity Self Driving Car Engineer Nanodegree - Project 4
@@ -23,10 +21,11 @@ The pipeline created for this project processes images in the following steps:
 [//]: # (Image References)
 
 [image1]: ./output_images/1_corners_found/corners_found1.jpg "Chessboard Conors"
-[image2]: ./output_images/2_distortion_corrected/0.png "Undistorted"
-[image3]: ./examples/binary_combo_example.jpg "Binary Example"
-[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
+[image2]: ./output_images/2_distortion_corrected_chessboard/0.png "Undistorted Chessboard"
+[image3]: ./output_images/2_distortion_corrected/0.png "Undistorted"
+[image4]: ./output_images/3_color_gradient_transformd/0.png "Binary Example"
+
+[image5]: ./output_images/4_birdsseye/0.png "Warp Example"
 [image6]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
 
@@ -37,43 +36,43 @@ This project requires python 3.5 and the following dependencies:
 - [OpenCV](http://opencv.org/)
 - [MoviePy](http://zulko.github.io/moviepy/)
 
-### Step 1: Distortion Correction
+### Step 1: Camera Calibration
 In this step, I used the OpenCV functions `findChessboardCorners` and `drawChessboardCorners` to identify the locations of corners on a series of pictures of a chessboard taken from different angles.
 
 ![alt text][image1]
 
 Next, the locations of the chessboard corners were used as input to the OpenCV function `calibrateCamera` to compute the camera calibration matrix and distortion coefficients. 
 
-Finally, the camera calibration matrix and distortion coefficients were used with the OpenCV function `undistort` to remove distortion from highway driving images.
-
+#### Example of a distortion corrected calibration image.
 ![alt text][image2]
 
-Note that if you compare the two images, especially around the edges, there are noticable differences between the original and undistorted image, indicating that distortion has been removed from the original image.
 
+## Pipeline (single images)
 
-###Camera Calibration
-
-####1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
-
-The code for this step is contained in the first code cell of the IPython notebook located in "./examples/example.ipynb" (or in lines # through # of the file called `some_file.py`).  
-
-I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
-
-I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
-
-![alt text][image1]
-
-###Pipeline (single images)
-
-####1. Provide an example of a distortion-corrected image.
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
-![alt text][image2]
-####2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+### Step 2: Distortion Correction
+The camera calibration matrix and distortion coefficients calculated in the previous step were used with the OpenCV function `undistort` to remove distortion from highway driving images.
 
 ![alt text][image3]
 
-####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
+Note that if you compare the two images, especially around the edges, there are noticable differences between the original and undistorted image, indicating that distortion has been removed from the original image.
+
+### Step 3: color tranform and gradient threshold
+* Threshold x gradient (for grayscaled image)
+* Threshold colour channel (S channel)
+* Combine the two binary thresholds to generate a binary image.
+* The parameters (e.g. thresholds) were determined via trial and error (see Discussion). 
+* Improvement: determine the parameters in a more rigorous way.
+
+I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at ln [30] in `p4_advanced_lane_finding.ipynb`). 
+
+#### Example of a thresholded binary image
+![alt text][image4]
+
+### Step 4: perspective transform
+* Select only a hard-coded region (lower half of the image) of interest using a binary mask.
+* Transform the image from the car camera's perspective to a birds-eye-view perspective.
+* Hard-code the source and destination polygon coordinates and obtain the matrix `M` that maps them onto each other using `cv2.getPerspective`.
+* Warp the image to the new birds-eye-view perspective using `cv2.warpPerspective` and the perspective transform matrix `M` we just obtained.
 
 The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
 
