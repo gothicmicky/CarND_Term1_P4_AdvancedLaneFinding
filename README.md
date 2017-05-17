@@ -26,7 +26,7 @@ The pipeline created for this project processes images in the following steps:
 [image4]: ./output_images/3_color_gradient_transformd/0.png "Binary Example"
 [image5]: ./output_images/4_birdsseye/0.png "Warp and Histogram Example"
 [image6]: ./output_images/5_fitlines/0.png "Fitted Lines"
-[image7]: ./output_images/CurvatureFomular.png ""
+[image7]: ./output_images/CurvatureFormula.png ""
 [image8]: ./output_images/7_visualization/0.png "Visualize Fitted Lines"
 
 [video1]: ./project_video.mp4 "Video"
