@@ -26,7 +26,7 @@ The pipeline created for this project processes images in the following steps:
 [image4]: ./output_images/3_color_gradient_transformd/0.png "Binary Example"
 [image5]: ./output_images/4_birdsseye/0.png "Warp and Histogram Example"
 [image6]: ./output_images/5_fitlines/0.png "Fitted Lines"
-[image7]: ./output_images/CurvatureFomular.png
+[image7]: ./output_images/CurvatureFomular.png ""
 [image8]: ./output_images/7_visualization/0.png "Visualize Fitted Lines"
 
 [video1]: ./project_video.mp4 "Video"
@@ -115,7 +115,8 @@ Once the left and right line pixel positions are extraced, a second order polyno
 
 ### Step 6: Curvature and Lane Position
 The radius of curvature and lane position were calculated using the fomular below in ln [24]
-[image7]
+
+![alt text][image7]
 
 ### Step 7: Visualize fitted line
 
@@ -126,10 +127,9 @@ I implemented this step in ln [27].  Here is an example of my result on a test i
 ---
 
 ###Pipeline (video)
+I condensed the operations into a single function `process_image` in the ipynb. In the video pipeline, I have added fit_continuous() function to process the 2nd frame and beyond as we could simply fit the line from previously identified line positions and using a margin. I also added santify_check() function to perform santi check on each line detection based on the assumption that the lane line coeffcients should not change beyond a certain threashold compare to the previous frame. If the detection failed, the previouly fitted lines will be used instead.
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
-
-Here's a [link to my video result](./project_video.mp4)
+[Video output](./project_output.mp4)
 
 ---
 
