@@ -26,7 +26,7 @@ The pipeline created for this project processes images in the following steps:
 [image4]: ./output_images/3_color_gradient_transformd/0.png "Binary Example"
 [image5]: ./output_images/4_birdsseye/0.png "Warp and Histogram Example"
 [image6]: ./output_images/5_fitlines/0.png "Fitted Lines"
-[image7]: ./output_images/CurvatureFomular.png ""
+[image7]: ./output_images/CurvatureFormula.png ""
 [image8]: ./output_images/7_visualization/0.png "Visualize Fitted Lines"
 
 [video1]: ./project_video.mp4 "Video"
@@ -126,7 +126,7 @@ I implemented this step in ln [27].  Here is an example of my result on a test i
 
 ---
 
-###Pipeline (video)
+## Pipeline (video)
 I condensed the operations into a single function `process_image` in the ipynb. In the video pipeline, I have added fit_continuous() function to process the 2nd frame and beyond as we could simply fit the line from previously identified line positions and using a margin. I also added santify_check() function to perform santi check on each line detection based on the assumption that the lane line coeffcients should not change beyond a certain threashold compare to the previous frame. If the detection failed, the previouly fitted lines will be used instead.
 
 [![Video output](https://img.youtube.com/vi/TnCGr3EAxP0/0.jpg)](https://youtu.be/TnCGr3EAxP0 "Video output")
