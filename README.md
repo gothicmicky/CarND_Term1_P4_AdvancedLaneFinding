@@ -24,9 +24,11 @@ The pipeline created for this project processes images in the following steps:
 [image2]: ./output_images/2_distortion_corrected_chessboard/0.png "Undistorted Chessboard"
 [image3]: ./output_images/2_distortion_corrected/0.png "Undistorted"
 [image4]: ./output_images/3_color_gradient_transformd/0.png "Binary Example"
+[image5]: ./output_images/4_birdsseye/0.png "Warp and Histogram Example"
+[image6]: ./output_images/5_fitlines/0.png "Fitted Lines"
+[image7]: ./output_images/CurvatureFomular.png
+[image8]: ./output_images/7_visualization/0.png "Visualize Fitted Lines"
 
-[image5]: ./output_images/4_birdsseye/0.png "Warp Example"
-[image6]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
 
 ### Code:
@@ -100,23 +102,26 @@ This resulted in the following source and destination points:
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-![alt text][image4]
-
-####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
-
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
-
 ![alt text][image5]
 
-####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+### Step 5: Detect Lane Lines
+I started by taking a histogram of the warpped image. To reduce noise, only the bottom half of the image are used as the lane lines only appear in the bottom half. Then the peak of the left and right halves of the histogram were identified and used as the starting point for the left and right lines. Note that if the car drifted away from the center of the lane (e.g. change lanes), this approach would no longer work.
 
-I did this in lines # through # in my code in `my_other_file.py`
+Theh next step is to apply sliding windows from the starting point (bottom of the image) up to the top of the image. The width of the window is 100 pixels. The threshold for the mininum number of pixels is 50 for the window to be qualified as containing lanes.
 
-####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
-
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+Once the left and right line pixel positions are extraced, a second order polynomail fit is applied using np.polyfit. Below is an example of the fitted lines.
 
 ![alt text][image6]
+
+### Step 6: Curvature and Lane Position
+The radius of curvature and lane position were calculated using the fomular below in ln [24]
+[image7]
+
+### Step 7: Visualize fitted line
+
+I implemented this step in ln [27].  Here is an example of my result on a test image:
+
+![alt text][image8]
 
 ---
 
