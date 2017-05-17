@@ -65,7 +65,7 @@ Note that if you compare the two images, especially around the edges, there are 
 * The parameters (e.g. thresholds) were determined via trial and error (see Discussion). 
 * Improvement: determine the parameters in a more rigorous way.
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at ln [30] in `p4_advanced_lane_finding.ipynb`). 
+I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at ln [30] in Color_and_Gradient_Thresh() function in `p4_advanced_lane_finding.ipynb`). 
 
 #### Example of a thresholded binary image
 ![alt text][image4]
@@ -132,9 +132,11 @@ I condensed the operations into a single function `process_image` in the ipynb. 
 [![Video output](https://img.youtube.com/vi/TnCGr3EAxP0/0.jpg)](https://youtu.be/TnCGr3EAxP0 "Video output")
 ---
 
-###Discussion
+## Discussion
+* 1: Noise interfering with detection of lane lines, resulting in lines with higher curvature being drawn
+    Solution: increase the minimum threshold for the x gradient from 20 to 40 to filter out noise. (Increasing it to 50 left out parts of the lane.)
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
-
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
-
+* 2: Sanity check algorithm failed when lane line curvature changed dramatically. 
+    The santiy check was performed by calculating the tangent between left and right in two points, and check if it is in a reasonable threshold. This approach is too fragile when the lane lines change direction frequenly and the threshold needs to be manully tuned per video. I have implemented a reset feautre to start from the scratch usign histograms and sliding windows to detect the lanes, which helped with the challenge video. 
+    Futurue improvement: Checking that newly fitted lines have similar curvature indead of checking the slope.
+    
