@@ -2,7 +2,7 @@
 
 ## Udacity Self Driving Car Engineer Nanodegree - Project 4
 
-![Final Result Gif](./images/project_vid.gif)
+[![Video output](https://img.youtube.com/vi/TnCGr3EAxP0/0.jpg)](https://youtu.be/TnCGr3EAxP0 "Video output")
 
 The goal of this project is to develop a pipeline to process a video stream from a forward-facing camera mounted on the front of a car, and output an annotated video which identifies:
 - The positions of the lane lines 
