@@ -38,6 +38,8 @@ This project requires python 3.5 and the following dependencies:
 - [OpenCV](http://opencv.org/)
 - [MoviePy](http://zulko.github.io/moviepy/)
 
+All source code are located in the iPython notebook: p4_advanced_lane_finding.ipynb.
+
 ### Step 1: Camera Calibration
 In this step, I used the OpenCV functions `findChessboardCorners` and `drawChessboardCorners` to identify the locations of corners on a series of pictures of a chessboard taken from different angles.
 
