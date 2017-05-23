@@ -77,7 +77,7 @@ I used a combination of color and gradient thresholds to generate a binary image
 #### Example of a thresholded binary image
 ![alt text][image4]
 
-### Step 4: perspective transform
+### 3: perspective transform
 * Select the area of interest (the lower half of the image) using a binary mask.
 * Transform the image from the car camera's perspective to a birds-eye-view perspective.
 * Hard-code the source and destination polygon coordinates and obtain the matrix `M` that maps them onto each other using `cv2.getPerspective`.
@@ -143,7 +143,7 @@ def curvature(left_fit, right_fit, binary_warped):
 
 ![alt text][image7]
 
-### Step 7: Visualize fitted line
+### 6: Visualize fitted line
 
 I implemented this step in ln [27].  Here is an example of my result on a test image:
 
