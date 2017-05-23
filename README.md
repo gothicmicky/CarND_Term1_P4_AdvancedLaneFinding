@@ -2,7 +2,7 @@
 
 ## Udacity Self Driving Car Engineer Nanodegree - Project 4
 
-[![Video output](https://img.youtube.com/vi/TnCGr3EAxP0/0.jpg)](https://youtu.be/TnCGr3EAxP0 "Video output")
+![alt text][image0]
 
 The goal of this project is to develop a pipeline to process a video stream from a forward-facing camera mounted on the front of a car, and output an annotated video which identifies:
 - The positions of the lane lines 
@@ -20,6 +20,7 @@ The pipeline created for this project processes images in the following steps:
 
 [//]: # (Image References)
 
+[image0]: ./output_images/output.gif "Project Output"
 [image1]: ./output_images/1_corners_found/corners_found1.jpg "Chessboard Conors"
 [image2]: ./output_images/2_distortion_corrected_chessboard/0.png "Undistorted Chessboard"
 [image3]: ./output_images/2_distortion_corrected/0.png "Undistorted"
@@ -28,8 +29,6 @@ The pipeline created for this project processes images in the following steps:
 [image6]: ./output_images/5_fitlines/0.png "Fitted Lines"
 [image7]: ./output_images/CurvatureFormula.png ""
 [image8]: ./output_images/7_visualization/0.png "Visualize Fitted Lines"
-
-[video1]: ./project_video.mp4 "Video"
 
 ### Code:
 This project requires python 3.5 and the following dependencies:
@@ -155,7 +154,8 @@ I implemented this step in ln [27].  Here is an example of my result on a test i
 ## Pipeline (video)
 I condensed the operations into a single function `process_image` in the ipynb. In the video pipeline, I have added fit_continuous() function to process the 2nd frame and beyond as we could simply fit the line from previously identified line positions and using a margin. I also added santify_check() function to perform santi check on each line detection based on the assumption that the lane line coeffcients should not change beyond a certain threashold compare to the previous frame. If the detection failed, the previouly fitted lines will be used instead.
 
-[![Video output](https://youtu.be/mudLDc6hJsM/0.jpg)](https://https://youtu.be/mudLDc6hJsM "Video output")
+[![Video output](https://youtu.be/mudLDc6hJsM/0.jpg)](https://youtu.be/mudLDc6hJsM "Video output")
+
 ---
 
 ## Discussion/ToDos
