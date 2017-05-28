@@ -1,9 +1,9 @@
 # Advanced Lane Finding
 
-## Udacity Self Driving Car Engineer Nanodegree - Project 4
-
 ![alt text][image0]
 
+## Project Overview
+--
 The goal of this project is to develop a pipeline to process a video stream from a forward-facing camera mounted on the front of a car, and output an annotated video which identifies:
 - The positions of the lane lines 
 - The location of the vehicle relative to the center of the lane
